@@ -12,8 +12,9 @@ setup(
     description='Geobricks library to process raster layers.',
     install_requires=[
         'flask',
+        'rasterio',
+        # this is not a real dependendency, it's just passed on the method
         'GeobricksDBMS',
-        'rasterio'
     ],
     url='http://pypi.python.org/pypi/GeobricksGISRaster/',
     keywords=['geobricks', 'geoserver', 'gis', 'raster']

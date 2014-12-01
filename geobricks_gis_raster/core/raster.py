@@ -29,6 +29,7 @@ def get_nodata_value(file_path, band=1):
         return "none" if "nodata" not in src.meta else str(src.meta["nodata"])
 
 
+# TODO: remove the db_spatial from here
 def crop_by_vector_database(raster_path, db_spatial, query_extent, query_layer):
     # TODO: make it better
     geom = json.dumps(db_spatial.query(query_extent))
@@ -297,4 +298,4 @@ def _get_histogram(ds, config):
 
 def get_authority(file_path):
     with rasterio.open(file_path) as src:
-        return "none" if "crs" not in src.meta else str(src.meta["crs"]["init"])
+        return "none" if "crs" not in src.meta else str(src.meta["crs"]["init"]).split(":")
