@@ -8,7 +8,6 @@ import rasterio
 from geobricks_gis_raster.utils.log import logger
 from geobricks_gis_raster.utils.filesystem import create_tmp_filename
 
-
 log = logger(__file__)
 
 # example of statistics
@@ -22,11 +21,6 @@ stats_config = {
         "force": True
     }
 }
-
-
-def get_nodata_value(file_path, band=1):
-    with rasterio.open(file_path) as src:
-        return "none" if "nodata" not in src.meta else str(src.meta["nodata"])
 
 
 # TODO: remove the db_spatial from here
@@ -296,6 +290,24 @@ def _get_histogram(ds, config):
     return stats
 
 
+
+def get_nodata_value(file_path, band=1):
+    try:
+        with rasterio.open(file_path) as src:
+            return "none" if "nodata" not in src.meta else str(src.meta["nodata"])
+    except Exception, e:
+        log.error(e)
+        raise Exception(e)
+
+# def get_nodata_value(file_path, band=1):
+#     ds = gdal.Open(file_path)
+#     return ds.GetRasterBand(band).GetNoDataValue()
+
 def get_authority(file_path):
     with rasterio.open(file_path) as src:
-        return "none" if "crs" not in src.meta else str(src.meta["crs"]["init"]).split(":")
+        print src.meta
+        if 'init' in src.meta['crs']:
+            return src.meta['crs']['init']
+        elif 'proj' in src.meta['crs']:
+            return src.meta['crs']['proj']
+    return None
