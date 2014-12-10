@@ -9,6 +9,11 @@ try:
 except Exception:
     folder_tmp_default = tempfile.gettempdir()
 
+try:
+    workspace_layer_separator = config["settings"]["folders"]["workspace_layer_separator"]
+except Exception, e:
+    workspace_layer_separator = "@"
+
 
 def create_tmp_filename(extension='', filename='',  subfolder='', add_uuid=True, folder_tmp=folder_tmp_default):
     """
@@ -43,7 +48,12 @@ def create_tmp_filename(extension='', filename='',  subfolder='', add_uuid=True,
         return (file_path + extension).encode('utf-8')
 
 
-def get_raster_path_by_uid(uid):
-    l = uid.split("|")
-    return os.path.join(config["settings"]["folders"]["geoserver_datadir"], "data",  l[0], l[1], l[1] + ".geotiff");
+# TODO: move it to the data manager?
+def get_raster_path_by_uid(uid, ext=".geotiff"):
+    l = uid.split(workspace_layer_separator) if workspace_layer_separator in uid else uid.split(":")
+    return os.path.join(config["settings"]["folders"]["geoserver_datadir"], "data",  l[0], l[1], l[1] + ext);
 
+
+def get_raster_path_by_ftp_uid(uid, ext=".geotiff"):
+    l = uid.split(workspace_layer_separator) if workspace_layer_separator in uid else uid.split(":")
+    return os.path.join(config["settings"]["folders"]["ftp"], l[0], l[1], l[1] + ext)
