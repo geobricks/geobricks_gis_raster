@@ -5,8 +5,8 @@ import copy
 import math
 import json
 import rasterio
-from geobricks_core.core.log import logger
-from geobricks_core.core.filesystem import create_tmp_filename
+from geobricks_common.core.log import logger
+from geobricks_common.core.filesystem import create_tmp_filename
 
 log = logger(__file__)
 
