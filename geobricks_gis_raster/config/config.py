@@ -25,13 +25,27 @@ config = {
             # Spatial Database
             "spatial": {
                 # default_db will search in the dbs["database"] as default option
-                "dbname": "dbname",
-                "host": "localhost",
+                "dbname": "fenix",
+                "host": "EXLPRFAOSTAT1.ext.fao.org",
                 "port": "5432",
-                "username": "user",
-                "password": "password",
-                "schema": "schema"
+                "username": "fenix",
+                "password": "Qwaszx",
+                "schema": "spatial"
             }
-        }
+        },
+
+        # Databases
+        # "db": {
+        #     # Spatial Database
+        #     "spatial": {
+        #         # default_db will search in the dbs["database"] as default option
+        #         "dbname": "dbname",
+        #         "host": "localhost",
+        #         "port": "5432",
+        #         "username": "user",
+        #         "password": "password",
+        #         "schema": "schema"
+        #     }
+        # }
     }
 }

@@ -16,6 +16,7 @@ setup(
         'rasterio',
         #'pygdal', #this will throw an error because is based on the currently installed gdal version
         # this is not a real dependendency, it's just passed on the method
+        'GeobricksCore',
         'GeobricksDBMS',
     ],
     url='http://pypi.python.org/pypi/GeobricksGISRaster/',

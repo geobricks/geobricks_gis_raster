@@ -5,8 +5,8 @@ import copy
 import math
 import json
 import rasterio
-from geobricks_gis_raster.utils.log import logger
-from geobricks_gis_raster.utils.filesystem import create_tmp_filename
+from geobricks_core.core.log import logger
+from geobricks_core.core.filesystem import create_tmp_filename
 
 log = logger(__file__)
 
@@ -71,16 +71,11 @@ def _crop_by_vector_database(input_file, query, db_connection_string, minlat, mi
         'gdalwarp',
         "-q",
         "-multi",
-        "-of",
-        "GTiff",
-        "-cutline",
-        db_connection_string,
-        "-csql",
-        query,
-        "-srcnodata",
-        str(srcnodata),
-        "-dstnodata",
-        str(dstnodata),
+        "-of", "GTiff",
+        "-cutline", db_connection_string,
+        "-csql", query,
+        "-srcnodata", str(srcnodata),
+        "-dstnodata", str(dstnodata),
         # -crop_to_cutline is needed otherwise the layer is not cropped
         # TODO: resolve shifting problem
         # "-crop_to_cutline",
@@ -99,10 +94,8 @@ def _crop_by_vector_database(input_file, query, db_connection_string, minlat, mi
     # TODO: is it useful the third opetation?
     args = [
         'gdal_translate',
-        "-a_nodata",
-        str(dstnodata),
-        # "-co",
-        # "'COMPRESS=DEFLATE'",
+        "-co", "COMPRESS=DEFLATE",
+        "-a_nodata", str(dstnodata),
         output_file_gdal_warp,
         output_file
     ]
