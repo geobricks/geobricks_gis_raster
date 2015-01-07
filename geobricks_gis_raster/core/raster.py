@@ -28,12 +28,12 @@ def crop_by_vector_database(raster_path, db_spatial, query_extent, query_layer):
     # TODO: make it better
     geom = json.dumps(db_spatial.query(query_extent))
     g = json.loads(geom)
-    log.info(g)
+    #log.info(g)
     obj = g[0][0]
-    log.info(obj)
+    #log.info(obj)
     obj = json.loads(obj)
     # TODO: this is hardcoded because the returning bbox is different from the one used by GDAL processing
-    log.info(obj["coordinates"])
+    #log.info(obj["coordinates"])
     minlat = obj["coordinates"][0][0][0]
     minlon = obj["coordinates"][0][1][1]
     maxlat = obj["coordinates"][0][2][0]
@@ -84,7 +84,7 @@ def _crop_by_vector_database(input_file, query, db_connection_string, minlat, mi
         output_file_gdal_warp
     ]
     try:
-        log.info(args)
+        #log.info(args)
         #TODO: handle subprocess Error (like that is not taken)
         proc = subprocess.call(args, stdout=subprocess.PIPE, stderr=None)
     except:
@@ -121,7 +121,7 @@ def get_statistics(input_file, config=stats_config):
     :param config: json config file to be passed
     :return: computed statistics
     """
-    log.info("get_statistics: %s" % input_file)
+    #log.info("get_statistics: %s" % input_file)
 
     if config is None:
         config = copy.deepcopy(stats_config)
@@ -241,11 +241,6 @@ def _get_descriptive_statistics(ds, config):
             s = srcband.GetStatistics(False, force)
         if stats is None:
             continue
-        #srcband.SetStatistics(float(s[0]), float(s[1]), float(s[2]), float(s[3]))
-        # if math.isnan(s[2]):
-        #     s[2] = "null"
-        # if math.isnan(s[2]):
-        #     s[3] = "null"
         if math.isnan(s[2]):
             log.warn("polygon is empty! %s " % s)
         else:
