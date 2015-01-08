@@ -5,6 +5,7 @@ import copy
 import math
 import json
 import rasterio
+import pyproj
 from geobricks_common.core.log import logger
 from geobricks_common.core.filesystem import create_tmp_filename
 
@@ -291,11 +292,30 @@ def get_nodata_value(file_path, band=1):
 #     ds = gdal.Open(file_path)
 #     return ds.GetRasterBand(band).GetNoDataValue()
 
+
 def get_authority(file_path):
+    '''
+    Get the authority used by a raster i.e. EPSG:4326
+    :param file_path: path to the file
+    :return: return the SRID of the raster projection
+    '''
     with rasterio.open(file_path) as src:
         print src.meta
         if 'init' in src.meta['crs']:
             return src.meta['crs']['init']
         elif 'proj' in src.meta['crs']:
             return src.meta['crs']['proj']
+    return None
+
+def get_srid(file_path):
+    '''
+    Get the SRID of a raster (i.e. 4326 or 3857 and not EPSG:4326)
+    :param file_path: path to the file
+    :return: return the SRID of the raster projection
+    '''
+    proj = get_authority(file_path)
+    if ":" in proj:
+        return proj.split(":")[1]
+    if proj.isdigit():
+        return proj
     return None
