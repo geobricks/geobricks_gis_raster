@@ -5,7 +5,6 @@ import copy
 import math
 import json
 import rasterio
-import pyproj
 from geobricks_common.core.log import logger
 from geobricks_common.core.filesystem import create_tmp_filename
 
