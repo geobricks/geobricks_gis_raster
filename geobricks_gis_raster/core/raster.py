@@ -30,7 +30,6 @@ def crop_raster_on_vector_bbox_and_postgis_db(input_file, db_connection_string, 
         dstnodata = srcnodata
 
     output_bbox = crop_raster_with_bounding_box(input_file, minlat, minlon, maxlat, maxlon, srcnodata)
-    print output_bbox
     output_path = crop_by_vector_from_db(output_bbox, db_connection_string, query, srcnodata, dstnodata)
     os.remove(output_bbox)
     return output_path
