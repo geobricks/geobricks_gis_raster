@@ -23,6 +23,102 @@ stats_config = {
 }
 
 
+def crop_raster_on_vector_bbox_and_postgis_db(input_file, db_connection_string, query, minlat, minlon, maxlat, maxlon, srcnodata=None, dstnodata=None):
+    if srcnodata == None:
+        srcnodata = get_nodata_value(input_file)
+    if dstnodata == None:
+        dstnodata = srcnodata
+
+    output_bbox = crop_raster_with_bounding_box(input_file, minlat, minlon, maxlat, maxlon, srcnodata)
+    print output_bbox
+    output_path = crop_by_vector_from_db(output_bbox, db_connection_string, query, srcnodata, dstnodata)
+    os.remove(output_bbox)
+    return output_path
+
+
+def crop_raster_with_bounding_box(input_file, minlat, minlon, maxlat, maxlon, srcnodata=None):
+    if srcnodata == None:
+        srcnodata = get_nodata_value(input_file)
+
+    log.info("crop_raster_with_bounding_box")
+    output_file = create_tmp_filename('.tif', 'gdal_translate_by_bbox')
+    args = [
+        "gdal_translate",
+        "-a_nodata", str(srcnodata),
+        "-projwin",
+        str(minlat),
+        str(minlon),
+        str(maxlat),
+        str(maxlon),
+        input_file,
+        output_file
+    ]
+    try:
+        log.info(args)
+        proc = subprocess.call(args, stdout=subprocess.PIPE, stderr=None)
+        # proc = subprocess.check_output(args)
+        # print proc
+    except Exception, e:
+        raise Exception(e)
+    return output_file
+
+
+def crop_by_vector_from_db(input_file, db_connection_string, query, srcnodata='nodata', dstnodata='nodata'):
+    log.info(query)
+    output_file_gdal_warp = create_tmp_filename('.tif', 'gdal_warp')
+    output_file = create_tmp_filename('.tif', 'output')
+    log.info(input_file)
+
+    # crop the layer on cutline
+    args = [
+        'gdalwarp',
+        "-q",
+        "-multi",
+        "-of", "GTiff",
+        "-cutline", db_connection_string,
+        "-csql", query,
+        "-srcnodata", str(srcnodata),
+        "-dstnodata", str(dstnodata),
+        # -crop_to_cutline is needed otherwise the layer is not cropped
+        # TODO: resolve shifting problem
+        # "-crop_to_cutline",
+        # "-dstalpha",
+        input_file,
+        output_file_gdal_warp
+    ]
+    try:
+        log.info(args)
+        #TODO: handle subprocess Error (like that is not taken)
+        output = subprocess.check_output(args)
+        # stdout_value, error = proc.communicate()
+        print output
+    except Exception, e:
+        raise Exception(e)
+
+        # TODO: is it useful the third opetation?
+    args = [
+        'gdal_translate',
+        "-co", "COMPRESS=DEFLATE",
+        "-a_nodata", str(dstnodata),
+        output_file_gdal_warp,
+        output_file
+    ]
+    try:
+        log.info(args)
+        #TODO: handle subprocess Error (like that is not taken)
+        proc = subprocess.call(args, stdout=subprocess.PIPE, stderr=None)
+    except:
+        stdout_value = proc.communicate()[0]
+        raise Exception(stdout_value)
+
+    #os.remove(output_file_gdal_warp)
+    if os.path.isfile(output_file):
+        return output_file
+    return None
+
+
+
+############### OLD METHODS
 # TODO: remove the db_spatial from here
 def crop_by_vector_database(raster_path, db_spatial, query_extent, query_layer):
     # TODO: make it better
@@ -298,6 +394,7 @@ def get_authority(file_path):
     :param file_path: path to the file
     :return: return the SRID of the raster projection
     '''
+    print file_path
     with rasterio.open(file_path) as src:
         print src.meta
         if 'init' in src.meta['crs']:
