@@ -23,19 +23,19 @@ stats_config = {
 }
 
 
-def crop_raster_on_vector_bbox_and_postgis_db(input_file, db_connection_string, query, minlat, minlon, maxlat, maxlon, srcnodata=None, dstnodata=None):
+def crop_raster_on_vector_bbox_and_postgis_db(input_file, db_connection_string, query, minlon, minlat, maxlon, maxlat, srcnodata=None, dstnodata=None):
     if srcnodata == None:
         srcnodata = get_nodata_value(input_file)
     if dstnodata == None:
         dstnodata = srcnodata
 
-    output_bbox = crop_raster_with_bounding_box(input_file, minlat, minlon, maxlat, maxlon, srcnodata)
+    output_bbox = crop_raster_with_bounding_box(input_file, minlon, minlat, maxlon, maxlat, srcnodata)
     output_path = crop_by_vector_from_db(output_bbox, db_connection_string, query, srcnodata, dstnodata)
     os.remove(output_bbox)
     return output_path
 
 
-def crop_raster_with_bounding_box(input_file, minlat, minlon, maxlat, maxlon, srcnodata=None):
+def crop_raster_with_bounding_box(input_file, minlon, minlat, maxlon, maxlat, srcnodata=None):
     if srcnodata == None:
         srcnodata = get_nodata_value(input_file)
 
