@@ -236,7 +236,7 @@ def get_statistics(input_file, config=stats_config):
     return stats
 
 
-def get_descriptive_statistics(input_file, config):
+def get_descriptive_statistics(input_file, config=stats_config["descriptive_stats"]):
     """
     :param input_file: file to be processed
     :param config: json config file to be passed
@@ -253,7 +253,7 @@ def get_descriptive_statistics(input_file, config):
         raise Exception(e)
 
 
-def get_histogram(input_file, config):
+def get_histogram(input_file, config=stats_config["histogram"]):
     """
     :param input_file: file to be processed
     :type string
@@ -345,7 +345,7 @@ def _get_descriptive_statistics(ds, config):
     return stats
 
 
-def _get_histogram(ds, config):
+def _get_histogram(ds, config=stats_config["histogram"]):
     #log.info("config %s " % config)
     # variables
     # TODO boolean of config value
