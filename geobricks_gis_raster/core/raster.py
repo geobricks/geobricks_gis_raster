@@ -90,7 +90,7 @@ def crop_by_vector_from_db(input_file, db_connection_string, query, srcnodata='n
         #TODO: handle subprocess Error (like that is not taken)
         output = subprocess.check_output(args)
         # stdout_value, error = proc.communicate()
-        print output
+        log.info(output)
     except Exception, e:
         raise Exception(e)
 
@@ -103,7 +103,7 @@ def crop_by_vector_from_db(input_file, db_connection_string, query, srcnodata='n
         output_file
     ]
     try:
-        log.info(args)
+        log.info(" ".join(args))
         #TODO: handle subprocess Error (like that is not taken)
         proc = subprocess.call(args, stdout=subprocess.PIPE, stderr=None)
     except:
@@ -393,9 +393,8 @@ def get_authority(file_path):
     :param file_path: path to the file
     :return: return the SRID of the raster projection
     '''
-    print file_path
     with rasterio.open(file_path) as src:
-        print src.meta
+        log.info(src.meta)
         if 'init' in src.meta['crs']:
             return src.meta['crs']['init']
         elif 'proj' in src.meta['crs']:
