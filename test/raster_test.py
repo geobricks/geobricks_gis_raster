@@ -1,5 +1,5 @@
 import unittest
-from geobricks_gis_raster.core.raster import get_nodata_value, get_histogram, get_descriptive_statistics, get_statistics
+from geobricks_gis_raster.core.raster import get_srid, get_authority, get_nodata_value, get_histogram, get_descriptive_statistics, get_statistics
 
 
 class GeobricksTest(unittest.TestCase):
@@ -24,6 +24,15 @@ class GeobricksTest(unittest.TestCase):
         result = get_descriptive_statistics(path)
         self.assertEqual(result, [{'band': 1, 'max': 1.9333192110061646, 'mean': 0.008779648138849024, 'sd': 0.056981237827174326, 'min': 0.0}])
 
+    def test_get_srid(self):
+        path = "../test_data/storage/raster/rice_area_4326/rice_area_4326.geotiff"
+        result = get_srid(path)
+        self.assertEqual(result, '4326')
+
+    def test_get_authority(self):
+        path = "../test_data/storage/raster/rice_area_4326/rice_area_4326.geotiff"
+        result = get_authority(path)
+        self.assertEqual(result, 'epsg:4326')
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(GeobricksTest)
