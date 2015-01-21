@@ -3,7 +3,7 @@ from setuptools import find_packages
 
 setup(
     name='GeobricksGISRaster',
-    version='0.1.4',
+    version='0.1.5',
     author='Simone Murzilli; Guido Barbaglia',
     author_email='geobrickspy@gmail.com',
     packages=find_packages(),
@@ -16,8 +16,7 @@ setup(
         'rasterio',
         #'pygdal', #this will throw an error because is based on the currently installed gdal version
         # this is not a real dependendency, it's just passed on the method
-        'GeobricksCommon',
-        'GeobricksDBMS',
+        'GeobricksCommon'
     ],
     url='http://pypi.python.org/pypi/GeobricksGISRaster/',
     keywords=['geobricks', 'geoserver', 'gis', 'raster']

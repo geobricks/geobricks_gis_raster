@@ -1,2 +1,4 @@
 include *.md *.txt *.json
 recursive-include geobricks_gis_raster *
+global-exclude *_dev.py
+global-exclude .gitignore
