@@ -1,4 +1,4 @@
-from osgeo import gdal
+import gdal
 import os
 import subprocess
 import copy
@@ -400,6 +400,7 @@ def get_authority(file_path):
         elif 'proj' in src.meta['crs']:
             return src.meta['crs']['proj']
     return None
+
 
 def get_srid(file_path):
     '''

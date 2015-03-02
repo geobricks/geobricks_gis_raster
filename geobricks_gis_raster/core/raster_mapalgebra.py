@@ -1,5 +1,5 @@
 import numpy as np
-from osgeo import gdal
+import gdal
 from osr import SpatialReference
 from geobricks_common.core.log import logger
 from geobricks_common.core.filesystem import create_tmp_filename
