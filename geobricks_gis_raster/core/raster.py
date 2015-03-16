@@ -7,6 +7,7 @@ import json
 import rasterio
 from geobricks_common.core.log import logger
 from geobricks_common.core.filesystem import create_tmp_filename
+from geobricks_proj4_to_epsg.core.proj4_to_epsg import get_epsg_code_from_proj4
 
 log = logger(__file__)
 
@@ -395,10 +396,14 @@ def get_authority(file_path):
     '''
     with rasterio.open(file_path) as src:
         log.info(src.meta)
+        # if 'init' in src.meta['crs']:
+        #     return src.meta['crs']['init']
+        # elif 'proj' in src.meta['crs']:
+        #     return src.meta['crs']['proj']
         if 'init' in src.meta['crs']:
             return src.meta['crs']['init']
         elif 'proj' in src.meta['crs']:
-            return src.meta['crs']['proj']
+            return "EPSG:" + str(get_epsg_code_from_proj4(to_string(src.meta['crs']['proj'])))
     return None
 
 
