@@ -11,3 +11,4 @@ v0.1.8, 11-02-2015 -- Added gdal dependency.
 v0.1.9, 11-02-2015 -- Removed gdal dependency.
 v0.1.10, 16-03-2015 -- added proj4 to epsg dependency.
 v0.1.11, 16-03-2015 -- typo in config.
+v0.1.12, 16-03-2015 -- typo in config.
