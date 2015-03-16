@@ -3,7 +3,7 @@ from setuptools import find_packages
 
 setup(
     name='GeobricksGISRaster',
-    version='0.1.9',
+    version='0.1.10',
     author='Simone Murzilli; Guido Barbaglia',
     author_email='geobrickspy@gmail.com',
     packages=find_packages(),

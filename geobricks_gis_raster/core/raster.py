@@ -402,7 +402,8 @@ def get_authority(file_path):
         if 'init' in src.meta['crs']:
             return src.meta['crs']['init']
         elif 'proj' in src.meta['crs']:
-            return "EPSG:" + str(get_epsg_code_from_proj4(to_string(src.meta['crs']['proj'])))
+            # TODO: check if works (find a raster to test it...)
+            return "EPSG:" + str(get_epsg_code_from_proj4(src.meta['crs']['proj']))
     return None
 
 
