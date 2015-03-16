@@ -57,7 +57,6 @@ def crop_raster_with_bounding_box(input_file, minlon, minlat, maxlon, maxlat, sr
         log.info(args)
         proc = subprocess.call(args, stdout=subprocess.PIPE, stderr=None)
         # proc = subprocess.check_output(args)
-        # print proc
     except Exception, e:
         raise Exception(e)
     return output_file
