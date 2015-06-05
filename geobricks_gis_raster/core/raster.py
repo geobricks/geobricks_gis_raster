@@ -314,7 +314,10 @@ def _location_value(input_file, lat, lon, band=None):
 
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     output, error = process.communicate()
-    return output.strip()
+    try:
+        return float(output.strip())
+    except Exception, e:
+        return None
 
 
 def _get_descriptive_statistics(ds, config):
