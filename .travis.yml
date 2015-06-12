@@ -6,14 +6,13 @@ python:
 before_install:
   - sudo add-apt-repository -y ppa:ubuntugis/ppa
   - sudo apt-get update -qq
-  - sudo apt-get install -y libgdal1h gdal-bin libgdal-dev
+  -sudo apt-get install python-numpy libgdal1h gdal-bin libgdal-dev
   - sudo apt-get install -y python-gdal
-  - sudo apt-get install -y python-numpy
   - sudo apt-get install -y libblas-dev liblapack-dev
 
 install:
     # rasterio dependencies
-  - pip install -r https://github.com/mapbox/rasterio/blob/master/requirements.txt
+  #- pip install -r https://github.com/mapbox/rasterio/blob/master/requirements.txt
   - pip install -r requirements-dev.txt
   - pip install -r requirements-gdal.txt
   - pip install pytest pytest-cov
