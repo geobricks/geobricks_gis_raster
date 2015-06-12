@@ -1,9 +1,14 @@
 watchdog
 flask
 flask-cors
-rasterio
-# fix for travis
+
+# GDAL fix for travis
 #pygdal>=1.9.2
 gdal==1.10.0
+
+# rasterio dependencies
+https://github.com/mapbox/rasterio/blob/master/requirements.txt
+rasterio
+
 https://github.com/geobricks/geobricks_common/archive/development.zip
 https://github.com/geobricks/geobricks_proj4_to_epsg/archive/development.zip
