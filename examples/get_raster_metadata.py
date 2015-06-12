@@ -1,7 +1,6 @@
 from geobricks_gis_raster.core import raster
 
 try:
-    print "test"
     path = "/home/vortex/Desktop/LAYERS/GHG_13_NOVEMEBRE/MCD12Q1/processed_2001/4326/final_4326.tiff"
     path = "/home/vortex/Desktop/LAYERS/GHG_13_NOVEMEBRE/MCD12Q1/processed_2001/0.hdf"
     path = "/home/vortex/Desktop/LAYERS/GHG_13_NOVEMEBRE/cultivation_organic_soils/3857/cultivation_organic_soils_croplands_3857.tif"
