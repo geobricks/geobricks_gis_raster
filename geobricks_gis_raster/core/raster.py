@@ -70,7 +70,7 @@ def crop_by_vector_from_db(input_file, db_connection_string, query, srcnodata='n
 
     # crop the layer on cutline
     args = [
-        'gdalwarp',
+        "gdalwarp",
         "-q",
         "-multi",
         "-of", "GTiff",
@@ -96,7 +96,7 @@ def crop_by_vector_from_db(input_file, db_connection_string, query, srcnodata='n
 
         # TODO: is it useful the third opetation?
     args = [
-        'gdal_translate',
+        "gdal_translate",
         "-co", "COMPRESS=DEFLATE",
         "-a_nodata", str(dstnodata),
         output_file_gdal_warp,
