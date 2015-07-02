@@ -1,5 +1,8 @@
 # import gdal
-from osgeo import gdal
+try:
+    from osgeo import gdal
+except:
+    import gdal
 import os
 import subprocess
 import copy
