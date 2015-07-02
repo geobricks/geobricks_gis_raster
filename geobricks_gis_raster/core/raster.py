@@ -1,4 +1,5 @@
-import gdal
+# import gdal
+from osgeo import gdal
 import os
 import subprocess
 import copy
