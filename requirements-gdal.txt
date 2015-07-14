@@ -1,2 +1,0 @@
-# GDAL fix for travis
-gdal==1.10.0

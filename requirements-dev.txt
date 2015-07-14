@@ -3,5 +3,6 @@ flask
 flask-cors
 rasterio
 requests
+gdal==1.10.0
 https://github.com/geobricks/geobricks_common/archive/development.zip
 https://github.com/geobricks/geobricks_proj4_to_epsg/archive/development.zip
