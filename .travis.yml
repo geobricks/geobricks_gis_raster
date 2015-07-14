@@ -20,7 +20,10 @@ before_install:
 
     # scipy dependency
   - sudo apt-get -y install libblas-dev liblapack-dev
-  - gdal-config --version
+
+  # - gdal-config --version
+  - export CPLUS_INCLUDE_PATH=/usr/include/gdal
+  - export C_INCLUDE_PATH=/usr/include/gdal
 
 install:
 #  - pip install -r requirements-dev.txt
