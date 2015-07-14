@@ -28,12 +28,8 @@ before_install:
 install:
   - pip install -r requirements-dev.txt
   - pip install -r requirements-gdal.txt
-#  - pip install --no-install GDAL
-#  - python setup.py build_ext --include-dirs=<path_to_headers>
-#  - pip install --no-download GDAL
   - pip install pytest pytest-cov
   - pip install -e .
 
 script:
   - py.test --cov geobricks_gis_raster/core --cov-report term-missing
-  #- nosetests -v geobricks_gis_raster_test/core/raster_test.py
