@@ -2,7 +2,7 @@ watchdog
 flask
 flask-cors
 rasterio
-https://raw.githubusercontent.com/geobricks/geobricks_common/development/requirements.txt
+-r https://raw.githubusercontent.com/geobricks/geobricks_common/development/requirements.txt
 https://github.com/geobricks/geobricks_common/archive/development.zip
-https://raw.githubusercontent.com/geobricks/geobricks_proj4_to_epsg/development/requirements.txt
+-r https://raw.githubusercontent.com/geobricks/geobricks_proj4_to_epsg/development/requirements.txt
 https://github.com/geobricks/geobricks_proj4_to_epsg/archive/development.zip
