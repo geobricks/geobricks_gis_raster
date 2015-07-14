@@ -10,7 +10,7 @@ before_install:
   - sudo apt-get install python-gdal
 
     # rasterio?
-  - sudo apt-get install g++
+  - sudo apt-get install g++ gcc
 
     # numpy (needs fortran to compile)
   - sudo apt-get -y install libblas3gf libc6 libgcc1 libgfortran3 liblapack3gf libstdc++6 build-essential gfortran python-all-dev libatlas-base-dev
