@@ -426,3 +426,20 @@ def get_srid(file_path):
     if proj.isdigit():
         return proj
     return None
+
+
+# TODO: make it nicer
+def get_pixel_size(input_file, formula=None):
+    # TODO: get pixel value with rasterio library?
+    cmd = "gdalinfo " + input_file + " | grep Pixel"
+    log.info(cmd)
+    try:
+        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        output, error = process.communicate()
+        if "Pixel Size" in output:
+            pixel_size = output[output.find("(")+1:output.find(",")]
+            return str(pixel_size)
+        return None
+    except Exception, e:
+        log.error(e)
+        raise Exception(e, 400)
